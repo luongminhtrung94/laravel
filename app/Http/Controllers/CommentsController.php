@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Company;
+use App\Comment;
 use Illuminate\Http\Request;
 
-class CompaniesController extends Controller
+class CommentsController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,9 +15,6 @@ class CompaniesController extends Controller
     public function index()
     {
         //
-        $companies = Company::all();
-
-        return view('companies.index' , ['companies' => $companies]);
     }
 
     /**
@@ -44,25 +41,21 @@ class CompaniesController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function show(Company $company)
+    public function show(Comment $comment)
     {
         //
-        // $company = Company::find($company->id);
-        $company = Company::where('id' , $company->id)->first();
-
-        return view("companies.show" , ["company" => $company]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function edit(Company $company)
+    public function edit(Comment $comment)
     {
         //
     }
@@ -71,10 +64,10 @@ class CompaniesController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Company  $company
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Company $company)
+    public function update(Request $request, Comment $comment)
     {
         //
     }
@@ -82,10 +75,10 @@ class CompaniesController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Company  $company
+     * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Company $company)
+    public function destroy(Comment $comment)
     {
         //
     }

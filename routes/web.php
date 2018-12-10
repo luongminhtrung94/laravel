@@ -14,15 +14,11 @@
 Route::get('/', function () {
     return view('welcome');
 });
-
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
 
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
-
-Auth::routes();
-
-Route::get('/home', 'HomeController@index')->name('home');
+Route::resource("companies" , "CompaniesController");
+Route::resource("projects" , "CompaniesController");
+Route::resource("roles" , "CompaniesController");
+Route::resource("tasks" , "CompaniesController");
+Route::resource("users" , "CompaniesController");
