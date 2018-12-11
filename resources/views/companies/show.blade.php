@@ -23,7 +23,21 @@
                         <a href="/companies/{{ $company->id }}/edit">Edit</a>
                     </li>
                     <li class="list-group-item">
-                        Delete
+                        <a href="#" onClick="confirmDelete(event)">Delete</a>
+                        <script>
+                            function confirmDelete(e){
+                                var result = confirm("Are you sure you wish to delete this Company?");
+                                if(result){
+                                    e.preventDefault();
+                                    document.getElementById('delete-form').submit();
+                                }
+                            }
+                        </script>
+                        
+                        <form id="delete-form" method="POST" action="{{ route('companies.destroy' , [$company->id]) }}" style="display:none">
+                            <input type="hidden" name="_method" value="delete"/>
+                            {{ csrf_field() }}
+                        </form>
                     </li>
                     <li class="list-group-item">
                         Add new member

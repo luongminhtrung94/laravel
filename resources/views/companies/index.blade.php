@@ -15,7 +15,14 @@
                     @endforeach
                 </ul>
             </div>
-            <div class="col-xs-12 col-sm-6">
+            <div class="col-xs-12 col-sm-3">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="{{ route('companies.create') }}">
+                            Create Company
+                        </a>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
