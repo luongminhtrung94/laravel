@@ -12,4 +12,8 @@ class Company extends Model
         'description',
         'user_id',
     ];
+
+    public function projects(){
+        return $this->hasMany('App\Project');
+    }
 }

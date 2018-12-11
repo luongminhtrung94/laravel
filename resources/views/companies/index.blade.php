@@ -2,6 +2,7 @@
 
 @section('content')
     <div class="container">
+        <h1>Companies</h1>
         <div class="row">
             <div class="col-xs-12 col-sm-6">
                 <ul class="list-group">
