@@ -16,6 +16,7 @@
                         Description: {{ $project->description }}
                     </li>
                 </ul>
+                @include ('partials.comments')
             </div>
             <div class="col-xs-12 col-sm-3">
                 <ul class="list-group">
@@ -42,17 +43,38 @@
                     <li class="list-group-item">
                         Add new member
                     </li>
+                    <li class="list-group-item">
+                        <a href="{{ URL::previous() }}">Go back</a>
+                    </li>
                 </ul>
             </div>
-
             <div class="col-xs-12 col-sm-3">
-                <ul class="list-group">
+                <!-- <ul class="list-group">
                     <li class="list-group-item">
                         <a href="{{ route('projects.index') }}">
                             All projects
                         </a>
                     </li>
-                </ul>
+                </ul> -->
+                <h1>new comment</h1>
+                <form method="POST" action="{{ route('comments.store') }}">
+                    {{ csrf_field() }}
+
+                    <input type="hidden" name="commentable_type" value="Project"/>
+                    <input type="hidden" name="commentable_id" value="{{ $project->id }}"/>
+
+                    <div class="form-group">
+                        <label>Url (proof of work done)</label>
+                        <input type="text" name="url" class="form-control" placeholder="enter url" />
+                    </div>
+                    <div class="form-group">
+                        <label>Comments</label>
+                        <textarea rows="3" type="text" name="body" class="form-control" placeholder="enter body"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
             </div>
         </div>
     </div>

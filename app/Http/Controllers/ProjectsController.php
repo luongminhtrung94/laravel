@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Project;
+use App\Comment;
+use App\Company;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -29,7 +31,15 @@ class ProjectsController extends Controller
     public function create($company_id = null)
     {
         //
-        return view("projects.create" , ['company_id' => $company_id] );
+        $companies = null;
+        if(!$company_id){
+            $companies = Company::where('user_id', Auth::user()->id)->get();
+        }
+
+        return view("projects.create" , [
+            'company_id' => $company_id,
+            'companies' => $companies
+        ] );
     }
 
     /**
@@ -72,8 +82,15 @@ class ProjectsController extends Controller
         //
         // $project = Project::find($project->id);
         $project = Project::where('id' , $project->id)->first();
+        $comment = Comment::where([
+            ['commentable_type' , 'Project'],
+            ['commentable_id' ,$project->id]
+        ])->get();
 
-        return view("projects.show" , ["project" => $project]);
+        return view("projects.show" , [
+            'project' => $project,
+            'comments' => $comment
+        ]);
     }
 
     /**

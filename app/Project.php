@@ -14,4 +14,9 @@ class Project extends Model
         'user_id',
         'days'
     ];
+
+
+    public function comments(){
+        return $this->morphMany('App\Comment' , 'commentable');
+    }
 }

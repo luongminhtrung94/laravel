@@ -8,7 +8,10 @@
                 <form method="POST" action="{{ route('projects.store') }}">
                     {{ csrf_field() }}
 
+                    @if($company_id)
                     <input type="hidden" name="company_id" value="{{ $company_id }}"/>
+                    @endif
+                    
                     <div class="form-group">
                         <label>Name</label>
                         <input type="text" name="name" class="form-control" placeholder="enter name" />
@@ -17,6 +20,17 @@
                         <label>Description</label>
                         <textarea rows="3" type="text" name="description" class="form-control" placeholder="enter description"></textarea>
                     </div>
+
+                    @if($companies != null)
+                    <div class="form-group">
+                        <label>Select Company</label>
+                        <select name="company_id" class="form-control">
+                        @foreach($companies as $company)
+                            <option value="{{ $company->id }}">{{ $company->name }}</option>
+                        @endforeach
+                        </select>
+                    </div>
+                    @endif
                     <div class="form-group">
                         <button type="submit" class="btn btn-primary">Submit</button>
                     </div>

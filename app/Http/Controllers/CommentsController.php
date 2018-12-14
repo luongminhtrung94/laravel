@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CommentsController extends Controller
 {
@@ -36,6 +37,23 @@ class CommentsController extends Controller
     public function store(Request $request)
     {
         //
+        $comment = '';
+        if(Auth::check()){
+            $comment = Comment::create([
+                'url' => $request->input('url'),
+                'body' => $request->input('body'),
+                'commentable_type' => $request->input('commentable_type'),
+                'commentable_id' => $request->input('commentable_id'),
+                'user_id' => Auth::user()->id,
+            ]);
+        }
+
+        if($comment){
+            return back()->with('success', 'Comment create successfully ');
+        }
+
+
+        return back()->withInput()->with('error' , 'Error creating new comment');
     }
 
     /**

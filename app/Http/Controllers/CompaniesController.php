@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 
 use App\Company;
+use App\Comment;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -73,7 +74,16 @@ class CompaniesController extends Controller
         // $company = Company::find($company->id);
         $company = Company::where('id' , $company->id)->first();
 
-        return view("companies.show" , ["company" => $company]);
+        $comment = Comment::where([
+            ['commentable_type' , 'Company'],
+            ['commentable_id' ,$company->id]
+        ])->get();
+
+
+        return view("companies.show" , [
+            "company" => $company,
+            "comments" => $comment
+        ]);
     }
 
     /**

@@ -45,6 +45,9 @@
                     <li class="list-group-item">
                         Add new member
                     </li>
+
+
+                    @include ('partials.comments')
                 </ul>
             </div>
 
