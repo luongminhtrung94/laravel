@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Project;
 use App\Comment;
 use App\Company;
+use App\User;
+use App\ProjectUser;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -147,5 +149,41 @@ class ProjectsController extends Controller
         }
 
         return back()->withInput()->with('error' , 'project could not be deleted');
+    }
+
+
+    public function adduser(Request $request){
+        $project = Project::find($request->input("project_id"));
+
+        if(Auth::user()->id == $project->user_id){
+
+            $user = User::where('email' , $request->input('email'))->first();
+
+            $projectUser = null;
+            if($user){
+                $projectUser = ProjectUser::where('user_id' , $user->id)
+                                            ->where('project_id' , $project->id)
+                                            ->first();
+            }
+
+            
+            if($projectUser){
+                return redirect()->route('projects.show' , [
+                    'project' => $project->id
+                ])->with('error' ,$request->input('email') . ' is already a member of this project');
+            }
+
+            if($user && $project){
+                $project->users()->attach($user->id);
+
+                return redirect()->route('projects.show' , [
+                    'project' => $request->input("project_id")
+                ])->with('success' , $request->input('email') . ' was added to the project successfully' );
+            }
+        }
+
+        return redirect()->route('projects.show' , [
+            'project' => $project->id
+        ])->with('error' ,'Error adding user to project' );
     }
 }

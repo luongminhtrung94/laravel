@@ -47,6 +47,28 @@
                         <a href="{{ URL::previous() }}">Go back</a>
                     </li>
                 </ul>
+                <form method="POST" action="{{ route('projects.adduser') }}">
+                    {{ csrf_field() }}
+                    <input type="hidden" name="project_id" value="{{$project->id}}"/>
+
+                    <div class="form-group">
+                        <label>Add new member</label>
+                        <div class="input-group">
+                            <input type="text" name="email" class="form-control"/>
+                            <span class="input-group-btn">
+                                <button type="submit" class="btn btn-primary ">Add</button>
+                            </span>
+                        </div>
+                    </div>
+                </form>
+                
+                <ul class="list-group">
+                    @foreach($project->users as $user)
+                    <li class="list-group-item">
+                        <a href="/projects/{{ $project->id }}/edit">{{$user->email}}</a>
+                    </li>
+                    @endforeach
+                </ul>
             </div>
             <div class="col-xs-12 col-sm-3">
                 <!-- <ul class="list-group">
