@@ -17,6 +17,12 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home');
 });
+Route::get('/send-mail' , function(){
+    return view('send_mail.send_mail');
+});
+Route::post("/send-mail" , "SendMailController@sendMail")->name("sendMail.send");
+
+
 Auth::routes();
 
 Route::middleware(['auth'])->group(function(){
