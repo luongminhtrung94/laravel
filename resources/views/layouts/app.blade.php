@@ -81,11 +81,14 @@
 
         <main class="py-4">
             <div class="container">
+                <example-component></example-component>
                 @include('partials.success')
                 @include('partials.error')
             </div>
             @yield('content')
         </main>
     </div>
+<script src="{{ asset('js/jquery-3.3.1.min.js') }}"></script>
+@stack('scripts')
 </body>
 </html>

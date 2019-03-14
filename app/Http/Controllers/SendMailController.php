@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Mail;
+use App\Http\Requests\SendMailRequest;
 
 class SendMailController extends Controller
 {
@@ -84,8 +85,19 @@ class SendMailController extends Controller
     }
 
 
-    public function sendMail(Request $request)
+    public function sendMail(SendMailRequest $request)
     {
+        $this->submitSendMail($request);
+        return view('mail_template.success');  
+    }
+    
+    public function apiSendMail(SendMailRequest $request)
+    {
+        $this->submitSendMail($request);
+        return 'success';  
+    }
+
+    public function submitSendMail($request){
         $input = $request->all();
         $email = $request->email;
         Mail::send('mail_template.gmail', 
@@ -97,6 +109,6 @@ class SendMailController extends Controller
 	            $message->to($email , 'luong minh trung')->subject('Test sendmail');
             }   
         );
-        return view('mail_template.success');  
     }
+
 }
